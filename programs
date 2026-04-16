@@ -1,0 +1,2344 @@
+1)pattern printing
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int i, j, var = 'A';
+    for (i = 5; i >= 1; i--) {
+        for (j = 0; j < i; j++)
+            printf("%c ", (var + j));
+        printf("\n");
+    }
+    return 0;
+}
+```
+
+**Output:**
+```
+A B C D E 
+A B C D 
+A B C 
+A B 
+A 
+
+2)zigzag pattern in matrix
+i/p:
+1 2 3
+4 5 6
+7 8 9
+o/p: 
+1 2 3 6 5 4 7 8 9
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int n,m;
+   cin>>n>>m;
+   int arr[n][m];
+   for (int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           cin>>arr[i][j];
+       }
+   }
+
+   for(int i=0;i<n;i++)
+   {
+       if(i%2==0)
+       {
+           for(int j=0;j<m;j++)
+           {
+               cout<<arr[i][j]<<" ";
+           }
+       }
+       else
+       {
+           for(int j=n-1;j>=0;j--)
+           {
+               cout<<arr[i][j]<<" ";
+           }
+       }
+   }
+
+}
+
+3)Input: 
+1 2 3
+4 5 6
+7 8 9
+Output: 
+1 2 4 7 5 3 6 8 9
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int n,m;
+   cin>>n>>m;
+   int arr[n][m];
+
+   for (int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           cin>>arr[i][j];
+       }
+   }
+
+   for(int d=0;d<n+m-1;d++)    //d(sum of each indices) maximum of d= row+column-2; d=i+j
+   {
+       if(d%2==0) //even diagonal->bottom to top
+       {
+           for(int i=n-1;i>=0;i--)
+           {
+               int j=d-i;
+               if(j>=0 && j<m)
+                  cout<<arr[i][j]<<" ";
+           }
+       }
+
+       else  //odd-> top to bottom  
+       {
+           for(int i=0;i<n;i++)
+           {
+               int j=d-i;
+               if(j>=0 && j<m)
+                  cout<<arr[i][j]<<" ";
+
+           }
+       }
+   }
+}
+
+4)i/p:
+1 2 3
+4 5 6
+7 8 9
+o/p:
+1 4 2 3 5 7 8 6 9
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int n,m;
+   cin>>n>>m;
+   int arr[n][m];
+
+   for (int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           cin>>arr[i][j];
+       }
+   }
+
+   for(int d=0;d<n+m-1;d++)    //d(sum of each indices) maximum of d= row+column-2; d=i+j
+   {
+       if(d%2==0) //even diagonal->top to bottom
+       {
+           for(int i=0;i<n;i++)
+           {
+               int j=d-i;
+               if(j>=0 && j<m)
+                  cout<<arr[i][j]<<" ";
+           }
+       }
+
+       else  //odd-> bottom to top
+       {
+           for(int i=n-1;i>=0;i--)
+           {
+               int j=d-i;
+               if(j>=0 && j<m)
+                  cout<<arr[i][j]<<" ";
+
+           }
+       }
+   }
+}
+
+5)print the matrix diagonally
+i/p:
+1 2 3
+4 5 6
+7 8 9
+o/p
+1 4 2 7 5 3 8 6 9
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int n,m;
+   cin>>n>>m;
+   int arr[n][m];
+   for (int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           cin>>arr[i][j];
+       }
+   }
+
+   for(int k=0;k<n;k++)    //1st part using row
+   {
+       int i=k;
+       int j=0;
+       while(i>=0 && j<m)
+       {
+           cout<<arr[i][j]<<" ";
+           i=i-1;
+           j=j+1;
+       }
+   }
+
+   for(int k=1;k<m;k++)    //2nd part using column
+   {
+       int i=n-1;
+       int j=k;
+       while(i>=0 && j<m)
+       {
+           cout<<arr[i][j]<<" ";
+           i=i-1;
+           j=j+1;
+       }
+   }
+}
+
+6)Print whether the version is upgraded, downgraded or not changed according to the input given.
+example: Input : Version1 4.8.2 Version2 4.8.4 Output: upgraded, Input : Version1 4.0.2 Version2 4.8.4 Output: downgraded
+
+NOTE:
+stringstream is a stream class that lets you treat a string like input/output (cin / cout)
+It allows you to read data from a string the same way you read from cin.
+A string may contain numbers + characters
+We want to extract numbers easily
+stringstream automatically converts string → int
+
+BASIC SYNTAX:
+gstream ss(string_name);
+ss >> variable;   //LIKE cin>>variable;
+
+SIMPLE EXAMPLE:
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+    string s = "123";
+    int x;
+
+    stringstream ss(s);
+    ss >> x;
+
+    cout << x;   // Output: 123
+}
+
+
+CODE FOR ABOVE QN:
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+
+    string v1,v2;
+    cin>>v1>>v2;
+
+    int a1,b1,c1;
+    int a2,b2,c2;
+    char dot;
+
+    stringstream s1(v1);
+    s1>>a1>>dot>>b1>>dot>>c1;
+
+    stringstream s2(v2);
+    s2>>a2>>dot>>b2>>dot>>c2;
+
+    if(a2>a1)
+        cout<<"upgraded";
+    else if(a2<a1)
+        cout<<"downgraded";
+    else if(b2>b1)
+        cout<<"upgraded";
+    else if(b2<b1)
+        cout<<"downgraded";
+    else if(c2>c1)
+        cout<<"upgraded";
+    else if(c2<c1)
+        cout<<"downgraded";
+    else
+        cout<<"not changed";
+
+}
+
+7)Print all possible subsets of the given array whose sum equal to given N.
+example: Input: {1, 2, 3, 4, 5} N=6 Output: {1, 2, 3}, {1, 5}, {2, 4}
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+   int n;
+   cin>>n;
+   int a[n];
+   for(int i=0;i<n;i++)
+   {
+       cin>>a[i];
+   }
+   int target;
+   cin>>target;
+
+   //1 element subset
+   for(int i=0;i<n;i++)
+   {
+       if (a[i]==target)
+          cout<<"{"<<a[i]<<"}"<<endl;
+   }
+
+   //2 element subset
+   for(int i=0;i<n;i++)
+   {
+       for (int j=i+1;j<n;j++)
+       {
+          if (a[i]+a[j]==target)
+          cout<<"{"<<a[i]<<","<<a[j]<<"}"<<endl;
+       }
+   }
+
+   //3 element
+   for(int i=0;i<n;i++)
+   {
+       for (int j=i+1;j<n;j++)
+       {
+           for(int k=j+1;k<n;k++)
+           {
+               if (a[i]+a[j]+a[k]==target)
+               cout<<"{"<<a[i]<<","<<a[j]<<","<<a[k]<<"}"<<endl;
+           }
+       }
+   }
+
+   return 0;
+}
+
+8)Equilibrium index of an array is an index such that the sum of elements at lower indexes is equal to the sum of elements at higher indexes. For example, in an array A:
+Example :
+Input: A[] = {-7, 1, 5, 2, -4, 3, 0}
+Output: 3
+3 is an equilibrium index, because:
+A[0] + A[1] + A[2] = A[4] + A[5] + A[6]
+Input: A[] = {1, 2, 3}
+Output: -1
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int n;
+   cin>>n;
+   int arr[n];
+   for (int i=0;i<n;i++)
+   {
+       cin>>arr[i];
+   }
+
+   int leftsum=0;
+
+   int totalsum=0;
+   for(int i=0;i<n;i++)
+       totalsum+=arr[i];
+
+   for(int i=0;i<n;i++)
+   {
+       totalsum-=arr[i];//totalsum is like a rightsum
+       if(leftsum==totalsum)
+       {
+           cout<<i;
+           return 0;
+       }
+       leftsum+=arr[i];
+   }
+
+   cout<<-1;
+   return 0;
+}
+
+9)2. Given a Boolean matrix mat[M][N] of size M X N, modify it such that if a matrix cell mat[i][j] is 1 then make its adjacent cells as 0.
+Input:
+1 0 1
+0 1 0
+1 1 1
+Output:
+1 0 1
+0 1 0
+1 0 1
+Explanation:
+For the cell mat[0][0] which is 1, its adjacent cells (mat[0][1] and mat[1][0]) are modified to 0.
+For the cell mat[1][1] which is 1, its adjacent cells (mat[0][1], mat[1][0], mat[1][2], and mat[2][1]) are modified to 0.
+The modification is not applied to the cell mat[2][2] as it doesn't have all four adjacent cells.
+
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int n,m;
+   cin>>n>>m;
+   int mat[n][m];
+   int temp[n][m];
+
+   for (int i=0;i<n;i++)
+   {
+     for(int j=0;j<m;j++)
+     {
+        cin>>mat[i][j];
+        temp[i][j]=mat[i][j]; //copying
+     }
+   }
+
+   for(int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           if(mat[i][j]==1 && i>0 && i<n-1 && j>0 && j<m-1) //checking if all 4 adjacent elements are present
+           {
+               temp[i-1][j]=0;  //up
+               temp[i+1][j]=0;  //down
+               temp[i][j-1]=0;  //left
+               temp[i][j+1]=0;  //right
+           }
+       }
+   }
+
+   //copying temp back to mat
+   for(int i=0;i<n;i++)
+   {
+       for(int j=0;j<m;j++)
+       {
+           mat[i][j]=temp[i][j];
+       }
+   }
+
+   for (int i=0;i<n;i++)
+   {
+     for(int j=0;j<m;j++)
+     {
+        cout<<mat[i][j]<<" ";
+     }
+     cout<<endl;
+   }
+}
+
+10) Greater on right side
+You are given an array Arr of size N. Replace every element with the next greatest element (greatest element on its right side) in the array. Also, since there is no element next to the last element, replace it with -1.
+Input:
+N = 6
+Arr[] = {16, 17, 4, 3, 5, 2}
+Output:
+17 5 5 5 2 -1
+Explanation: For 16 the greatest element 
+on its right is 17. For 17 it's 5. 
+For 4 it's 5. For 3 it's 5. For 5 it's 2. 
+For 2 it's -1(no element to its right). 
+So the answer is 17 5 5 5 2 -1
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+   int n;
+   cin>>n;
+   int arr[n];
+   for (int i=0;i<n;i++)
+   {
+     cin>>arr[i];
+   }
+   //int maxright=-1;    gives wrong o/p
+   for(int i=0;i<n;i++)
+   {
+      int maxright=-1;
+      for(int j=i+1;j<n;j++)
+      {
+         if(arr[j]>maxright)
+         {
+           maxright=arr[j];
+         }
+      }
+      arr[i]=maxright;
+   }
+   for (int i=0;i<n;i++)
+   {
+     cout<<arr[i]<<" ";
+   }
+
+}
+
+11)Given an array of integers, find the first element that repeats. If no element repeats, print -1.
+Input Format:
+First line contains integer N.
+Second line contains N space-separated integers.
+Output Format: Print the first repeating element.
+
+code:
+
+#include<iostream>
+using namespace std;
+int main()
+{
+  int n;
+  cin>>n;
+  int a[n];
+  for (int i=0;i<n;i++)
+    cin>>a[i];
+  for (int j=0;j<n;j++)
+  {
+    for (int k=j+1;k<n;k++)
+    {
+       if (a[j]==a[k])
+       {
+           cout<<a[j];
+           return 0;
+       }
+  }
+  cout<<"-1";
+  return 0;
+  }
+}
+
+12) Task Time Calculator
+ Given the number of tasks and their completion times, print the total time, minimum time, and maximum
+ time.
+ Input:
+ 5
+ 3 8 2 7 5
+ Output:
+ 25 2 8
+ 
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int min(int n,int a[])
+{
+  int m=INT_MAX;
+  for (int i=0;i<n;i++)
+  {
+    if (a[i]<m)
+       m=a[i];
+  }
+  return m;
+}
+
+int max(int n,int a[])
+{
+  int mx=INT_MIN;
+  for (int i=0;i<n;i++)
+  {
+    if (a[i]>mx)
+       mx=a[i];
+  }
+  return mx;
+}
+
+int add(int n,int a[])
+{
+  int sum=0;
+  for (int i=0;i<n;i++)
+  { 
+    sum+=a[i];
+  }
+  return sum;
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a[n];
+  for (int i=0;i<n;i++)
+     cin>>a[i];
+  cout<<add(n,a)<<" ";
+  cout<<min(n,a)<<" ";
+  cout<<max(n,a);
+}
+
+13) Even Odd Counter
+ Count how many numbers are even and how many are odd.
+ Input:
+ 5
+ 1 2 3 4 5
+ Output:
+ Even: 2 Odd: 3
+ 
+#include <iostream>
+using namespace std;
+
+int odd(int n,int a[])
+{
+  int count=0;
+  for (int i=0;i<n;i++)
+  {
+    if (i%2==0)
+       count++;
+  }
+  return count;
+}
+
+int even(int n,int a[])
+{
+  int count=0;
+  for (int i=0;i<n;i++)
+  {
+    if (i%2!=0)
+       count++;
+  }
+  return count;
+}
+
+int add(int n,int a[])
+{
+  int sum=0;
+  for (int i=0;i<n;i++)
+  { 
+    sum+=a[i];
+  }
+  return sum;
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a[n];
+  for (int i=0;i<n;i++)
+     cin>>a[i];
+  cout<<"odd: "<<odd(n,a)<<" ";
+  cout<<"even: "<<even(n,a);
+}
+
+14)Reverse a String
+ Print the given string in reverse.
+ Input:
+ Hello
+ 1
+ Output:
+ olleH
+ 
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+  string s;
+  getline(cin,s);
+  int len=s.length();
+  string reverse="";
+  for (int i=len-1;i>=0;i--)
+  {
+    reverse=reverse+s[i];
+  }
+  cout<<reverse<<endl;
+  return 0;
+}
+
+15) Palindrome Checker
+ Check if the given string is a palindrome (ignore spaces and case).
+ Input:
+ Madam
+ Output:
+ Yes
+ 
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+  string s;
+  getline(cin,s);
+  int len=s.length();
+  string res="";
+  for (int i=len-1;i>=0;i--)
+  {
+     res+=s[i];   
+  }
+  if (s==res)
+     cout<<"yes";
+  else
+     cout<<"no";
+  return 0;
+}
+
+16). Factorial of a Number
+ Compute the factorial of a number N (1 ≤ N ≤ 20).
+ Input:
+ 5
+ Output:
+ 120
+
+#include <iostream>
+//#include <string>
+//#include <algorithm>
+using namespace std;
+
+int fact(int n)
+{
+  if (n==0 || n==1)
+     return 1;
+  else
+     return n*fact(n-1);
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  cout<<fact(n);
+}
+
+17). Sum of Digits
+ Find the sum of digits of an integer.
+ Input:
+ 123
+Output:
+ 6
+ 
+#include <iostream>
+//#include <string>
+//#include <algorithm>
+using namespace std;
+
+int main()
+{
+  int n,m;
+  cin>>n;
+  int sum=0;
+  while(n>0)
+  {
+     m=n%10;
+     sum=sum+m;
+     n=n/10;
+  }
+  cout<<sum;
+  return 0;
+}
+
+18) Fibonacci Series
+ Print the first N terms of the Fibonacci sequence.
+ Input:
+ 5
+ Output:
+ 0 1 1 2 3
+ 
+#include <iostream>
+//#include <string>
+//#include <algorithm>
+using namespace std;
+
+int main()
+{
+  int n;
+  cin>>n;
+  int f=0,s=1;
+  int sum;
+  cout<<f<<" "<<s<<" ";
+  for (int i=3;i<=n;i++)
+  {
+     sum=f+s;
+     cout<<sum<<" ";
+     f=s;
+     s=sum;
+  }
+  return 0;
+}
+ 
+19)Armstrong Number
+ Check whether a number is an Armstrong number.
+ Input:
+ 153
+ Output:
+ Yes
+ 
+#include <iostream>
+//#include <string>
+//#include <algorithm>
+#include <cmath>  //pow()
+using namespace std;
+
+int cou(int n)
+{
+  int count=0;
+  while (n!=0)
+  {
+     n=n/10;
+     count++;
+  }
+  return count;
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  int ip=n;
+  int sum=0;
+  int count=cou(n);
+  while (n!=0)
+  {
+    int d=n%10;
+    sum=sum+pow(d,count);
+    n=n/10;
+    
+  }
+  cout<<sum<<endl;
+  if (ip==sum)
+    cout<<"yes";
+  else
+    cout<<"no";
+  return 0;
+}
+
+20) Second Largest Element
+ Find the second largest number in the array.
+ Input:
+ 5
+ 2 8 3 6 1
+ Output:
+ 6
+ 
+#include <iostream>
+#include<climits>
+using namespace std;
+
+int slarge(int n,int a[])
+{
+  int l=INT_MIN;
+  int sl=INT_MIN;
+  for (int i=0;i<n;i++)
+  {
+    if (a[i]>l)
+    {
+      sl=l;
+      l=a[i];
+    }
+    else if(a[i]>sl && a[i]!=sl)
+      sl=a[i];
+  }
+  return sl;
+}
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+    cout<<slarge(n,a);
+}
+
+21) Count Vowels and Consonants
+ Count the number of vowels and consonants in a string.
+ Input:
+ Hello World
+ Output:
+ Vowels: 3 Consonants: 7
+ 
+#include <iostream>
+#include <string>
+//#include<climits>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline(cin,s);
+    int n=s.length();
+    int v=0,c=0,sp=0;
+    for (int i=0;i<n;i++)
+    {
+      if (s[i]=='a' || s[i]=='e' || s[i]=='i'  || s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I'  || s[i]=='O' || s[i]=='U')
+          v++;
+      else if (31<s[i] && s[i]<48)
+          sp++;
+      else
+          c++;
+          
+    }
+    cout<<"special characters: "<<sp;
+    cout<<"vowels: "<<v;
+    cout<<"consonants: "<<c;
+}
+
+NOTE: ASCII VALUES
+       A-Z = 65-90
+       a-z = 97-122
+       0-9 = 48-57
+       special char
+          32 (space)
+          33–47 → ! " # $ % & ' ( ) * + , - . /
+          58–64 → : ; < = > ? @
+          91–96 → [ \ ] ^ _ `` ``
+          123–126 → { | } ~
+
+ 22)You are given a positive integer N.
+ In one step, you can do any of the following:
+ 1. Subtract 1 from N
+ 2. If N is divisible by 2, divide N by 2
+ 3. If N is divisible by 3, divide N by 3
+ Find the minimum number of steps required to reduce N to 1.
+ Input Format:- A single integer N (1 <= N <= 10^6)
+ Output Format:- A single integer - the minimum steps to reduce N to 1.
+ Example:
+ Input:
+ 10
+ Output:
+ 3
+ Explanation:
+ 10 -> 9 -> 3 -> 1 (3 steps)
+ 
+#include <iostream>
+#include <climits>
+#include <algorithm>
+using namespace std;
+
+int minsteps(int n)
+{
+  if (n==1)
+    return 0;
+  int ans1=minsteps(n-1);
+  int ans2=INT_MAX;
+  int ans3=INT_MAX;
+  if (n%2==0)
+    ans2= minsteps(n/2);
+  if (n%3==0)
+    ans3= minsteps(n/3);
+  return 1+min({ans1,ans2,ans3});
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  cout<<minsteps(n);
+}
+
+23)You are given a string S consisting only of the characters 'A' and 'B'.
+ A string is considered balanced if it has an equal number of 'A' and 'B'.
+ Your task is to split the given string into the maximum number of balanced substrings and print that count.
+ Input Format:- First line: Integer N (length of the string, 1 <= N <= 10^5)- Second line: String S of length N, containing only 'A' and 'B'.
+ Output Format:- Print a single integer - the maximum number of balanced substrings.
+ Example:
+ Input:
+ 8
+ AABBABAB
+ Output:
+ 4
+ 
+/#include <iostream>
+#include <string>
+using namespace std;
+
+int main() 
+{
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    int balance=0,count=0;
+    for (int i=0;i<=s.size()-1;i++)
+    {
+      if (s[i]=='A')
+        balance++;
+      else if (s[i]=='B')
+        balance--;
+      if (balance==0)
+        count++;
+    }
+    cout<<count;
+    return 0;
+    
+}
+ 
+24)program to find the length of the lastword in a string and print the lastword 
+
+i/p: hello world
+o/p: 5 (length)
+     world (last word)
+     
+#include <iostream>
+#include <string>
+using namespace std;
+
+int length(string s)
+{
+  int a=s.size()-1;
+  while (a>=0 && s[a]==' ')
+     a--;
+  int l=0;
+  while (a>=0 && s[a]!=' ')
+  {
+     l++;
+     a--;
+  }
+  return l;
+}
+
+string lastword(string s)
+{
+  if (s.empty())
+     return " ";
+  int a=s.length()-1;
+  while (a>=0 && s[a]==' ')
+     a--;
+  string lastw="";
+  while (a>=0 && s[a]!=' ')
+  {
+     lastw=s[a]+lastw;
+     a--;
+  }
+  return lastw;
+}
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int len=length(s);
+    cout<<len<<'\n';
+    cout<<lastword(s);
+} 
+
+  25)PROBLEMS ON NUMBERS
+
+1)FRIENDLY PAIR
+
+For two numbers num1 and num2
+Create two variables, sum1 and sum2
+Find the sum of divisors for num1 and num2 and assign the respective sums to sum1 and sum2 variables
+Find the ratio of sum1/num1 and sum2/num2
+If both ratios are same then these are friendly pair numbers
+
+s i/p:
+6, 28
+s o/p:
+friendly pair
+
+#include <iostream>
+using namespace std;
+
+int sumofdivisors(int n)
+{
+    int total=0;
+    for (int i=1;i<=n;i++)
+        if (n%i==0)
+          total+=i;
+    return total;
+}
+
+int main() 
+{
+    int n1,n2;
+    cin>>n1>>n2;
+    int sum1=sumofdivisors(n1);
+    int sum2=sumofdivisors(n2);
+    float a= sum1/n1;
+    float b= sum2/n2;
+    if (a==b)
+       cout<<"friendly pair";
+    else
+       cout<<"no";
+ }
+ 
+2)ABUNDANT NUMBER
+
+Ex:- Abundant number 12 having a proper divisor is 1, 2, 3, 4, 6 
+The sum of these factors is 16 it is greater than 12 
+So it is an Abundant number
+Some other abundant numbers: 
+18, 20, 30, 70, 78, 80, 84, 90, 96, 100, 104, 108, 120
+
+#include <iostream>
+using namespace std;
+
+int sumofdivisors(int n)
+{
+  int sum=0;
+  for (int i=1;i<n;i++)  //divisors should be less than the number  
+     if (n%i==0)
+        sum+=i;
+  return sum;
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a=sumofdivisors(n);
+  if (a>n)
+    cout<<"abundant number";
+  else
+    cout<<"no";
+}
+
+26)FRIENDLY PAIR
+For two numbers num1 and num2
+Create two variables, sum1 and sum2
+Find the sum of divisors for num1 and num2 and assign the respective sums to sum1 and sum2 variables
+Find the ratio of sum1/num1 and sum2/num2
+If both ratios are same then these are friendly pair numbers
+
+s i/p:
+6, 28
+s o/p:
+friendly pair
+
+#include <iostream>
+using namespace std;
+
+int sumofdivisors(int n)
+{
+    int total=0;
+    for (int i=1;i<=n;i++)
+        if (n%i==0)
+          total+=i;
+    return total;
+}
+
+int main() 
+{
+    int n1,n2;
+    cin>>n1>>n2;
+    int sum1=sumofdivisors(n1);
+    int sum2=sumofdivisors(n2);
+    float a= sum1/n1;
+    float b= sum2/n2;
+    if (a==b)
+       cout<<"friendly pair";
+    else
+       cout<<"no";
+ }
+ 
+27)ABUNDANT NUMBER
+
+Ex:- Abundant number 12 having a proper divisor is 1, 2, 3, 4, 6 
+The sum of these factors is 16 it is greater than 12 
+So it is an Abundant number
+Some other abundant numbers: 
+18, 20, 30, 70, 78, 80, 84, 90, 96, 100, 104, 108, 120
+
+#include <iostream>
+using namespace std;
+
+int sumofdivisors(int n)
+{
+  int sum=0;
+  for (int i=1;i<n;i++)  //divisors should be less than the number  
+     if (n%i==0)
+        sum+=i;
+  return sum;
+}
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a=sumofdivisors(n);
+  if (a>n)
+    cout<<"abundant number";
+  else
+    cout<<"no";
+}
+
+28)Occurence of elements in an array/ find the frequency of elements in an array
+
+i/p : 4
+      3 5 3 2
+
+o/p :  2:1
+       3:2
+       5:1
+
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int max(int a[],int n)
+{
+    int maxi=INT_MIN;
+    for (int i=0;i<n;i++)
+    {
+      if (a[i]>maxi)
+       maxi=a[i];
+    }
+    return maxi;     //to find the maximum element in an array
+}
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+       cin>>a[i];
+    int m=max(a,n);
+    int f[m+1];     //creating frequency array with length of max element+1
+    for (int i=0;i<m+1;i++)
+       int (f[i]=0);    //set frequency array = 0
+    for (int i=0;i<n;i++)
+       f[a[i]]++;           //traverse i/p array & increement if it exists
+    for (int i=0;i<m+1;i++)
+    {
+
+         if (f[i]!=0)
+            cout<<i<<":"<<f[i]<<endl;      
+    }
+       
+    return 0;
+}
+
+29)Rotate Array by K Positions
+Input:
+Array: 5 10 15 20 25 30
+K = 3
+Output:
+20 25 30 5 10 15
+
+(K > N case)
+Input:
+Array: 1 2 3
+K = 5
+Logic: K = 5 % 3 = 2
+Output:
+3 1 2
+
+#include <iostream>
+#include <climits>
+using namespace std;
+
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a[n];
+  for(int i=0;i<n;i++)
+  {
+    cin>>a[i];
+  }
+  int k;
+  cin>>k;
+  if(n==0)
+    return 0;
+      k=k%n;  //useful when k>n case
+  for(int i=k;i<n;i++)
+    cout<<a[i]<<" ";
+  for(int i=0;i<k;i++)
+    cout<<a[i]<<" ";
+  return 0;
+}
+
+30)move zeros to end
+input: 4
+       0 5 0 2
+output: 5 2 0 0
+
+#include <iostream>
+#include <climits>
+using namespace std;
+
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a[n];
+  for(int i=0;i<n;i++)
+  {
+    cin>>a[i];
+  }
+  int j=0;        //declaring new index or variable
+  for(int i=0;i<n;i++)
+  {
+    if(a[i]!=0)
+    {
+      a[j]=a[i];
+      j++;
+    }
+  }
+  //fill remaining positions with zero
+  while(j<n)
+  {
+      a[j]=0;
+      j++;
+  }
+  for(int i=0;i<n;i++)
+    cout<<a[i]<<" ";
+
+}
+
+31)remove duplicates
+Input
+7
+1 1 2 2 3 4 4
+Output
+1 2 3 4
+
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a[n];
+  for(int i=0;i<n;i++)
+  {
+    cin>>a[i];
+  }
+  //sort the array
+  int j=0;  //declare j for finding unique element
+  for(int i=1;i<n;i++)
+  {
+    if(a[i]!=a[j])
+    {
+        j++;
+        a[j]=a[i];
+    }
+  }
+  int newsize=j+1;
+  for(int i=0;i<newsize;i++)
+    cout<<a[i]<<" ";
+
+}
+
+32)intersection of two arrays
+Input
+5
+1 2 2 3 4
+4
+2 2 4 6
+
+Output
+Intersection: 2 4
+
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int main()
+{
+  int n;
+  cin>>n;
+  int a[n];
+  for(int i=0;i<n;i++)
+  {
+    cin>>a[i];
+  }
+
+  int m;
+  cin>>m;
+  int b[m];
+  for(int i=0;i<m;i++)
+  {
+    cin>>b[i];
+  }
+   
+  for(int i=0;i<n;i++)
+  {
+      bool found=false;
+      for(int k=0;k<i;k++)//this loops checks the duplicates in 1st array
+      {
+         if(a[i]==a[k])
+         {
+            found=true;
+            break;
+         }
+      }
+
+      if(found)
+        continue;
+
+      for(int j=0;j<m;j++)//compares with 2nd array
+      {
+           if (a[i]==b[j])
+           {
+             cout<<a[i]<<" ";
+             break;
+           }
+      }
+  }
+  return 0;
+
+}
+
+33)merge two sorted arrays
+input
+4
+1 3 5 7
+4
+2 4 6 8
+Output
+1 2 3 4 5 6 7 8
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n;  // size of first array
+    int A[n];
+    for(int i = 0; i < n; i++)
+        cin >> A[i];
+
+    cin >> m;  // size of second array
+    int B[m];
+    for(int i = 0; i < m; i++)
+        cin >> B[i];
+
+    int i = 0, j = 0;
+
+    cout << "Merged Array: ";
+
+    // Merge using two pointers
+    while(i < n && j < m) {
+        if(A[i] < B[j]) {
+            cout << A[i] << " ";
+            i++;
+        } else {
+            cout << B[j] << " ";
+            j++;
+        }
+    }
+
+    // Copy remaining elements if any
+    while(i < n) {
+        cout << A[i] << " ";
+        i++;
+    }
+    while(j < m) {
+        cout << B[j] << " ";
+        j++;
+    }
+
+    return 0;
+}
+
+34)Find two numbers in an array whose sum = target.
+
+Example
+Array: [2, 7, 11, 15]
+Target = 9
+Output: Pair: (2, 7)
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n, target;
+    cin >> n;  // size of array
+    int a[n];
+    for(int i = 0; i < n; i++)
+        cin >> a[i];
+
+    cin >> target;  // target sum
+
+    bool found = false;
+
+    // Check all pairs
+    for(int i = 0; i < n; i++) {
+        for(int j = i + 1; j < n; j++) {
+            if(a[i] + a[j] == target) {
+                cout << "Pair: (" << a[i] << ", " << a[j] << ")";
+                found = true;
+                break;  // stop after first pair
+            }
+        }
+        if(found) break;
+    }
+
+    if(!found)
+        cout << "No pair found";
+
+    return 0;
+}
+
+ARRAYS
+Array is a collection of items of the same variable type that are stored at contiguous memory locations
+
+35)Find Largest element in an array
+
+#include <iostream>
+#include<climits>
+using namespace std;
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+    int max=INT_MIN;
+    
+    for (int i=0;i<n;i++)
+    {
+      if (max<a[i])
+        max=a[i];
+    }
+    cout<<max; 
+    return 0;
+}
+
+36)find smallest element in an array
+
+#include <iostream>
+#include<climits>
+using namespace std;
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+    int min=INT_MAX;
+    
+    for (int i=0;i<n;i++)
+    {
+      if (min>a[i])
+        min=a[i];
+    }
+    cout<<min; 
+    return 0;
+}
+
+37)Find Second Smallest Element in an Array
+
+#include <iostream>
+#include<climits>
+using namespace std;
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+    //int min=INT_MAX;
+    
+    for (int i=0;i<n;i++)
+    {
+      for (int j=0;j<n;j++)
+      {
+        if (a[i]<a[j])
+        {
+          int t=a[i];
+          a[i]=a[j];
+          a[j]=t;
+        }
+      }
+    }
+    for (int i=0;i<n;i++)
+        cout<<a[i]<<" "; 
+    cout<<endl<<a[1];
+    return 0;
+}
+
+38)Find Second Largest Element in an Array
+
+same code as below except the condition
+if (a[i]>a[j])
+
+2)Calculate the sum of elements in an array
+
+#include <iostream>
+/*#include<climits>*/
+using namespace std;
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+    int sum=0;
+    
+    for (int i=0;i<n;i++)
+    {
+      sum+=a[i];
+    }
+    cout<<sum;
+    return 0;
+}
+
+39)Reverse an array
+
+#include <iostream>
+/*#include<climits>*/
+using namespace std;
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+    
+    for (int i=n-1;i>=0;i--)
+    {
+        cout<<a[i]<<" ";
+    }
+    return 0;
+}
+
+40)Sort first half in ascending order and second half in descending
+i/p 1: 7(odd)
+       7 2 6 9 0 5 1 
+ 
+o/p 1: 2 6 7 9 5 1 0 
+
+i/p 2: 6(even)
+       7 2 6 9 0 5 
+       
+o/p 2: 2 6 7 9 5 0 
+
+#include <iostream>
+/*#include<climits>*/
+using namespace std;
+
+
+int asc(int a[],int m)
+{
+    for (int i=0;i<m;i++)
+    {
+      for (int j=0;j<m;j++)
+      {
+        if (a[i]<a[j])
+        {
+          int t=a[i];
+          a[i]=a[j];
+          a[j]=t;
+        }
+      }
+    }
+    /*for (int i=0;i<n;i++)
+      cout<<a[i]<<" ";*/
+    return 0;
+}
+
+int des(int a[],int m,int n)
+{
+    for (int i=m;i<n;i++)
+    {
+      for (int j=m;j<n;j++)
+      {
+        if (a[i]>a[j])
+        {
+          int t=a[i];
+          a[i]=a[j];
+          a[j]=t;
+        }
+      }
+    }
+    return 0;
+}
+
+int odd(int a[],int m,int n)
+{
+  if (n%2!=0)
+  { 
+    asc(a,m);
+    for (int i=m+1;i<n;i++)
+    {
+      for (int j=m+1;j<n;j++)
+      {
+        if (a[i]>a[j])
+        {
+          int t=a[i];
+          a[i]=a[j];
+          a[j]=t;
+        }
+      }
+    }
+  }
+  return 0;
+}
+
+int main() 
+{
+    int n;
+    cin>>n;
+    int a[n];
+    for (int i=0;i<n;i++)
+        cin>>a[i];
+    int m=n/2;
+    asc(a,m);
+    des(a,m,n);
+    odd(a,m,n);
+    for (int i=0;i<n;i++)
+       cout<<a[i]<<" ";
+    return 0;
+}
+
+STRINGS
+1)Given two strings s and t, return 1 if s is a subsequence of t, or 0 otherwise.
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "abe" is a subsequence of "abcde" while "aed" is not).
+Input Format
+Two strings t and s in order.
+Output Format
+A single integer(1 or 0)
+Sample Input 0
+abcde
+abe
+Sample Output 0
+1
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string a,b;
+    getline(cin,a);
+    getline(cin,b);
+    int c=a.length();
+    int d=b.length();
+    int count=0;
+    for(int i=0;i<d;i++)
+    {
+      for(int j=0;j<c;j++)
+      {
+        if (b[i]==a[j])
+        {
+          count++;
+          break;
+        }
+      }
+    }
+    if (count==d)
+      cout<<"1";
+    else
+      cout<<"0";
+    return 0;
+}
+
+2)Input Format
+Input consists of one string.
+Output Format
+The Output consists of one integer that corresponds to the sum of all numbers present in the string.
+Sample Input 0
+1abc23
+Sample Output 0
+24
+
+#include<iostream>
+using namespace std;
+int main()
+{
+   string a;
+   getline(cin,a);
+   int b=a.length();
+   int num=0;
+   int sum=0;
+   for (char i=0;i<b;i++)
+   {
+     if (a[i]>='0' && a[i]<='9')
+        num=num*10+(a[i]-'0');
+     else
+     {
+        sum=sum+num;
+        num=0;
+     }
+    }
+    sum=sum+num;
+    cout<<sum;
+   }
+
+3)Sample Input 0
+39631
+Sample Output 0
+93361
+Explanation
+Step 1 - Interchange the first two digits, 3 and 9, which form 93631.
+Step 2 - Interchange the third and fourth digits, 6 and 3 which form 93361,
+Step 3 - For the fifth digit as there is no digit to be interchanged with, it is left it is so it will be kept as 93361.
+So, the output is 93361.
+
+#include <iostream>              //using while loop and two variables i,j
+using namespace std;
+
+int main() 
+{
+    string a;
+    getline(cin,a);
+    int b=a.length();
+    //for (int i=0;i<b-1;i+=2)
+    int i=0,j=1;
+    while (j<b)
+    {
+      char temp=a[i];
+      a[i]=a[j];
+      a[j]=temp;
+      i+=2;
+      j+=2;
+    }
+    cout<<a;
+}
+
+ALTERNATIVE METHOD
+
+#include <iostream>              //using for loop and one variable i
+using namespace std;
+
+int main() 
+{
+    string a;
+    getline(cin,a);
+    int b=a.length();
+    for (int i=0;i<b-1;i+=2)
+    {
+      char temp=a[i];
+      a[i]=a[i+1];
+      a[i+1]=temp;
+    }
+    cout<<a;
+}
+
+4)to remove all characters in the second string which are present in the first string
+Sample Input 0
+Motor
+Motorcycle
+Sample Output 0
+cycle
+
+#include <iostream>
+using namespace std;
+int main() 
+{
+    string a;
+    getline(cin,a);
+    string b;
+    getline(cin,b);
+    string res=" ";
+    for (int i=0;i<b.length();i++)
+    { 
+      bool found=false;
+      for (int j=0;j<a.length();j++)
+      {
+        if (b[i]==a[j])
+        {
+          found=true;
+          break;
+        }
+      }
+    if (!found)
+       res+=b[i];
+    }
+    cout<<res;
+}
+
+ALTERNATIVE
+
+#include<iostream>
+using namespace std;
+int main()
+{
+	string s;
+	cin>>s;
+	int n1=s.length();
+	string d;
+	cin>>d;
+	int n2=d.length();
+	for(int i=0;i<n2;i++)
+	{
+		int c=0;
+		for(int j=0;j<n1;j++)
+		{
+			if(d[i]!=s[j])
+			{
+				c++;
+			}
+		}
+		if(c==n1)
+		cout<<d[i];
+	}
+	return 0;
+}
+
+5)to find whether the given string is the anagram of the first string.
+Note: An anagram of a string is another string that contains the same characters, only the order of characters can be different.
+Sample Input 0
+eat
+ate
+Sample Output 0
+﻿Anagram
+
+#include <iostream>
+#include <algorithm>    //while using sort()
+using namespace std;
+int main() 
+{
+    string a;
+    getline(cin,a);
+    string b;
+    getline(cin,b);
+    string res1=" ";
+    string res2=" ";
+    sort(a.begin(),a.end());
+    sort(b.begin(),b.end());
+    res1=a;
+    res2=b;
+    if (res1==res2)
+       cout<<"anagram";
+    else
+       cout<<"not an anagram";
+}
+
+6)The Government of India has decided to provide scholarships for Engineering students. The following are the eligibility criteria. Students passing out on or after 2021 are eligible. Standing arrears shall be maximum of 2. Family Income should be less than or equal to 200000 annually. Students' age should be greater than or equal to 18 and less than 21. The score on the scholarship test should be greater than or equal to 60%. Attendance percentage to date should be greater than or equal to 80%. There are some relaxations provided by the government for the above-mentioned criteria.
+If the student has more than 2 standing arrears he/she should score 80% of marks in the scholarship test and attendance should be greater than 90% to date. If the family income is greater than 200000 but less than 250000 half the scholarship amount will be granted if he/she satisfies all the other criteria.
+Write a program to tell the eligibility of the students for the scholarship by providing "Eligible", "Not Eligible", "Partially Eligible"
+Input Format
+The first is an Integer denoting age. The second is an Integer denoting the year of passing. The third is an Integer denoting family income. The fourth is an Integer input denoting standing arrears. The fifth is a float denoting the percentage of marks obtained in the scholarship test. The sixth is a float denoting attendance percentage.
+Constraints
+NA
+Output Format
+A string telling the eligibility as mentioned above.
+Sample Input 0
+19
+2022
+190000
+0
+100
+100
+Sample Output 0
+Eligible
+Sample Input 1
+20
+2022
+240000
+4
+85
+90
+Sample Output 1
+Partially Eligible
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int age,yr,inc,arr;
+    float marks,att;
+    cin>>age>>yr>>inc>>arr;
+    cin>>marks>>att;
+    if (yr>=2021 && arr<=2 && inc<=200000 && age>=18 && age <=21 && att>=80 &&marks>=60)
+      cout<<"eligible";
+    else if (arr>=2 && marks==80 && att>=90 && inc>200000 && inc<250000)
+       cout<<"partially eligible";
+    else
+       cout<<"not eligible";
+}
+
+7)to sort a string in ascending order. Note: Do not use inbuilt functions.
+Sample Input 0
+faceprep
+Sample Output 0
+aceefppr
+
+(BUBBLESORT)
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string a;
+    getline(cin,a);
+    int b=a.length();
+    for (int i=0;i<b-1;i++)
+    {
+      for (int j=0;j<b-i-1;j++)
+      {
+        if (a[j]>a[j+1])
+        {
+          int temp=a[j];
+          a[j]=a[j+1];
+          a[j+1]=temp;
+        }
+      }
+    }
+    cout<<a;
+}
+
+8) to reverse a string manually
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    char str[] = "OpenAI";
+    int length = 0;
+
+    // Step 1: Find length manually
+    while (str[length] != '\0') {
+        length++;
+    }
+
+    // Step 2: Reverse using two-pointer approach
+    int start = 0;
+    int end = length - 1;
+    while (start < end) {
+        // Swap characters
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+
+        start++;
+        end--;
+    }
+
+    // Step 3: Output reversed string
+    cout << "Reversed string: " << str << endl;
+
+    return 0;
+    }
+
+9)to check whether the given string is palindrome or not 
+note: ignore the spaces and case sensitive
+
+#include <iostream>
+using namespace std;
+// Convert uppercase to lowercase
+char lower(char ch) {
+    if (ch >= 'A' && ch <= 'Z') 
+    {
+        return ch + ('a' - 'A');
+    }
+    return ch;
+}
+int main() 
+{
+    string a;
+    getline(cin, a);
+    string clean = "";   // cleaned string (no spaces, all lowercase)
+    string reverse = ""; // reversed version
+    // Build cleaned string 
+    for (int i = 0; i < a.length(); i++) 
+    {
+        if (a[i] != ' ')
+        {
+            clean += lower(a[i]);
+        }
+    }
+    // Create reverse of cleaned string
+    for (int i = clean.length() - 1; i >= 0; i--) 
+    {
+        reverse += clean[i];
+    }
+    // Compare cleaned and reversed
+    if (clean == reverse)
+    {
+        cout << "palindrome";
+    }
+    else 
+    {
+        cout << "not a palindrome";
+    }
+    return 0;
+}
+
+10) i)to check whether the char is vowel or consonant
+note:the input can also be a number or special character
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    char ch;
+    cin>>ch;
+    if (!isalpha(ch))
+      cout<<"non alphabet";
+    else if (ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u' || ch=='A' || ch=='E' || ch=='I' || ch=='O' || ch=='U' )
+      cout<<"vowel";
+    else
+      cout<<"consonant";
+    return 0;
+}
+
+ii)to remove vowels from a string
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int n=s.length();
+    string res="";
+    for (int i=0;i<n;i++)
+    { 
+      bool vowel=false;
+      if (s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U')
+        vowel=true;
+      if (!vowel)
+        res+=s[i];
+    }
+    cout<<res;
+}
+
+iii)count total vowels in a string
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int n=s.length();
+    int c=0;
+    for (int i=0;i<n;i++)
+    { 
+      if (s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u' || s[i]=='A' || s[i]=='E' || s[i]=='I' || s[i]=='O' || s[i]=='U')
+        c++;
+    }
+    cout<<c;
+}
+
+11)to check the char is alphabet or not
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    char ch;
+    cin>>ch;
+    if ((ch>=65 && ch<=90) || (ch>=97 && ch<=120))
+       cout<<"alphabet";
+    else
+       cout<<"non alphabet";
+    return 0;
+}
+
+12)to calculate ASCII value of Character
+s i/p: A
+s o/p: 65
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    char ch;
+    cin>>ch;
+    cout<<int(ch);
+    return 0;
+}
+
+13)Length of the string without using strlen() function 
+s i/p: motor
+s o/p: 5
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string str;
+    getline(cin,str);
+    int c=0;
+    for (int i=0;str[i]!='\0';i++)  //all strings contains a default null character('/0') in the end but not all words in a string
+    {
+      c++;
+    }
+    cout<<c;
+    return 0;
+}
+
+14)toggle each character in a string
+s i/p: RooT
+s o/p: rOOt
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string c;
+    getline(cin,c);
+    for (int i=0;i<c.length();i++)
+    {
+      if (c[i]>=65 && c[i]<=90)
+      {
+        char r=c[i]+32;
+        cout<<r;
+      }
+      if (c[i]>=97 && c[i]<=122)
+      {
+        char s=c[i]-('a'-'A');          //s=c[i]-32
+        cout<<s;
+      }
+      if (c[i]==' ')
+        cout<<" ";
+    }
+    return 0;
+}
+
+15)find non repeating characters in a string
+s i/p: motor
+s o/p: mtr
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string c;
+    getline(cin,c);
+    int n=c.length();
+    for (int i=0;i<n;i++)
+    { 
+      bool unique=true;
+      for (int j=0;j<n;j++)
+      { 
+        if (i!=j && c[i]==c[j])   //i!=j char should not be compared with itself
+           unique=false;
+      }
+      if (unique)
+        cout<<c[i];
+    }
+    return 0;
+}
+
+16)Count the sum of numbers in a string
+s input: a1b2c3
+s output: 6
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int n=s.length();
+    int sum=0;
+    for (int i=0;i<n;i++)
+    {
+      if (s[i]>='0' && s[i]<='9')
+        sum=sum+(s[i]-'0');       //to convert char into int = ch-'0'=>'5'-'0'=>5
+    }
+    cout<<sum;
+}
+
+17)remove brackets in a string
+s i/p: n(yk]}
+s o/p:nyk
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int n=s.length();
+    string res="";
+    for (int i=0;i<n;i++)
+    { 
+      if ((s[i]!='(' && s[i]!=')') && (s[i]!='[' && s[i]!=']') && (s[i]!='{' && s[i]!='}'))
+        res+=s[i];
+    }
+    cout<<res;
+}
+
+18)to remove spaces in a string
+i/p: hi hello
+o/p:hihello
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int n=s.length();
+    string res="";
+    for (int i=0;i<n;i++)
+    { 
+      if (s[i]!=' ')
+        res+=s[i];
+    }
+    cout<<res;
+}
+
+19)Remove all characters from string except alphabets
+i/p: abs":12d
+o/p: absd
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int n=s.length();
+    string res="";
+    for (int i=0;i<n;i++)
+    { 
+      if ((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z'))
+        res+=s[i];
+    }
+    cout<<res;
+}
+
+20)Print the given string in reverse order
+i/p: hello
+o/p: olleh
+
+i/p=hello world
+o/p= dlrow olleh
+
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    string s;
+    getline (cin,s);
+    int n=s.length();
+    string res="";
+    for (int i=n-1;i>=0;i--)
+    { 
+      res+=s[i];
+    }
+    cout<<res;
+}
+    
